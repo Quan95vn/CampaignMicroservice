@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CampaignManagement.Infrastructure\CampaignManagement.Infrastructure.csproj" />
+      <ProjectReference Include="..\IntergrationEvent\IntergrationEvent.csproj" />
+      <ProjectReference Include="..\PrizeManagement.Domain\PrizeManagement.Domain.csproj" />
+      <ProjectReference Include="..\PrizeManagement.Infrastructure\PrizeManagement.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MassTransit" Version="8.1.2" />
+    </ItemGroup>
+
+
+</Project>
