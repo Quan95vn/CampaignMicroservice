@@ -6,13 +6,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.2.0" />
-    </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj" />
+      <ProjectReference Include="..\Campaign.Domain\Campaign.Domain.csproj" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Folder Include="Prize\" />
+    </ItemGroup>
 
 </Project>

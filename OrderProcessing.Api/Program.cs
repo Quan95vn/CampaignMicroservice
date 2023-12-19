@@ -14,15 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add MediatR and specify the assembly where the handlers are located
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
 // Configure DbContext (use in-memory database for simplicity)
 builder.Services.AddDbContext<OrderContext>(options =>
     options.UseInMemoryDatabase("OrdersDb"));
 
 // Add repository to DI container
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+// Add MediatR and specify the assembly where the handlers are located
+builder.Services.AddMediatR(cf => cf.RegisterServicesFromAssembly(typeof(CreateOrderCommandHandler).Assembly));
 
 var app = builder.Build();
 

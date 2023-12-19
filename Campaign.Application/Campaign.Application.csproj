@@ -7,12 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MassTransit" Version="8.1.2" />
       <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj" />
+      <ProjectReference Include="..\Campaign.Domain\Campaign.Domain.csproj" />
+      <ProjectReference Include="..\Campaign.Infrastructure\Campaign.Infrastructure.csproj" />
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
+
+
     </ItemGroup>
+
+
 
 
 </Project>

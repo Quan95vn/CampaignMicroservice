@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.2.0" />
+      <ProjectReference Include="..\Prize.Domain\Prize.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.25" />
     </ItemGroup>
 
 
