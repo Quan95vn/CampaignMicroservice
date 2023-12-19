@@ -7,7 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.25" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\UserManagement.Application\UserManagement.Application.csproj" />
+      <ProjectReference Include="..\UserManagement.Infrastructure\UserManagement.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

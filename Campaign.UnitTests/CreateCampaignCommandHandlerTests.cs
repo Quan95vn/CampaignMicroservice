@@ -21,8 +21,8 @@ public class CreateCampaignCommandHandlerTests
         using var context = new CampaignContext(options);
 
         var repository = new CampaignRepository(context);
-        var mockBus = new Mock<IBus>();
-        var handler = new CreateCampaignCommandHandler(repository, mockBus.Object);
+        var mockPublishEndpoint = new Mock<IPublishEndpoint>();
+        var handler = new CreateCampaignCommandHandler(repository, mockPublishEndpoint.Object);
 
         var command = new CreateCampaignCommand
         {

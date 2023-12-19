@@ -7,23 +7,26 @@ namespace Prize.Application.EventHandler;
 
 public class CampaignCreatedConsumer : IConsumer<CampaignCreatedEvent>
 {
-    private readonly PrizeContext _context;
     private readonly IPrizeRepository _prizeRepository;
 
-    public CampaignCreatedConsumer(PrizeContext context, IPrizeRepository prizeRepository)
+    public CampaignCreatedConsumer(IPrizeRepository prizeRepository)
     {
-        _context = context;
         _prizeRepository = prizeRepository;
     }
 
-    public async Task Consume(ConsumeContext<CampaignCreatedEvent> context)
+    /// <summary>
+    /// Populate Prize data once Campaign is created
+    /// </summary>
+    /// <param name="consumeContextcontext"></param>
+    public async Task Consume(ConsumeContext<CampaignCreatedEvent> consumeContextcontext)
     {
         var prize = new Domain.Prize
         {
             Id = Guid.NewGuid(),
-            CampaignId = context.Message.Id,
+            Name = consumeContextcontext.Message.Name,
+            CampaignId = consumeContextcontext.Message.CampaignId,
             ClaimedQuantity = 0,
-            TotalQuantity = context.Message.TotalAmount,
+            TotalQuantity = consumeContextcontext.Message.TotalAmount,
         };
 
         await _prizeRepository.AddPrizeAsync(prize);
