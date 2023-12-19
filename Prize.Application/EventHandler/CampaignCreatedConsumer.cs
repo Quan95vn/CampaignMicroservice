@@ -15,7 +15,7 @@ public class CampaignCreatedConsumer : IConsumer<CampaignCreatedEvent>
     }
 
     /// <summary>
-    /// Populate Prize data once Campaign is created
+    /// Litsent to CampaignCreatedEvent to populate Prize data once Campaign is created
     /// </summary>
     /// <param name="consumeContextcontext"></param>
     public async Task Consume(ConsumeContext<CampaignCreatedEvent> consumeContextcontext)

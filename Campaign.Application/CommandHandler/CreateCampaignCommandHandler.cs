@@ -17,6 +17,13 @@ public class CreateCampaignCommandHandler : IRequestHandler<CreateCampaignComman
         _campaignRepository = campaignRepository;
         _publishEndpoint = publishEndpoint;
     }
+    
+    /// <summary>
+    /// Create campaign
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<CampaignResponse> Handle(CreateCampaignCommand request, CancellationToken cancellationToken)
     {
         var campaign = new Domain.Campaign
@@ -32,6 +39,7 @@ public class CreateCampaignCommandHandler : IRequestHandler<CreateCampaignComman
 
         await _campaignRepository.AddCampaignAsync(campaign);
         
+        // Once created, publish an event to Prize service to populate Prize data for campaign
         await _publishEndpoint.Publish<CampaignCreatedEvent>(new
         {
             Id = Guid.NewGuid(), 

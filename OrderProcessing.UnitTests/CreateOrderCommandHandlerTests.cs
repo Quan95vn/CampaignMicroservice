@@ -1,5 +1,6 @@
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using OrderProcessing.Application.Command;
 using OrderProcessing.Application.CommandHandler;
@@ -23,7 +24,13 @@ public class CreateOrderCommandHandlerTests
         var mockBus = new Mock<IBus>();
 
         using var context = new OrderContext(options);
-        var handler = new CreateOrderCommandHandler(mockOrderRepository.Object, mockBus.Object);
+        
+        var mock = new Mock<ILogger<CreateOrderCommandHandler>>();
+        ILogger<CreateOrderCommandHandler> logger = mock.Object;
+        
+        var repository = new OrderRepository(context);
+        var mockPublishEndpoint = new Mock<IPublishEndpoint>();
+        var handler = new CreateOrderCommandHandler(repository, mockPublishEndpoint.Object, logger);
 
         var command = new CreateOrderCommand
         {
@@ -40,6 +47,5 @@ public class CreateOrderCommandHandlerTests
         Assert.IsType<OrderResponse>(result);
         Assert.Equal(command.UserId, result.UserId);
         Assert.Equal(1, context.Orders.Count());
-        mockOrderRepository.Verify(repo => repo.AddOrderAsync(It.IsAny<Order>()), Times.Once);
     }
 }

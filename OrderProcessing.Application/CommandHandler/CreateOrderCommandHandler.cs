@@ -1,6 +1,7 @@
 using Contracts.Prize;
 using MassTransit;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using OrderProcessing.Application.Command;
 using OrderProcessing.Domain;
 using OrderProcessing.Infrastructure;
@@ -10,13 +11,15 @@ namespace OrderProcessing.Application.CommandHandler;
 
 public class CreateOrderCommandHandler: IRequestHandler<CreateOrderCommand, OrderResponse>
 {
+    private readonly ILogger<CreateOrderCommandHandler> _logger;
     private readonly IOrderRepository _orderRepository;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public CreateOrderCommandHandler(IOrderRepository orderRepository, IPublishEndpoint publishEndpoint)
+    public CreateOrderCommandHandler(IOrderRepository orderRepository, IPublishEndpoint publishEndpoint, ILogger<CreateOrderCommandHandler> logger)
     {
         _orderRepository = orderRepository;
         _publishEndpoint = publishEndpoint;
+        _logger = logger;
     }
 
     /// <summary>
@@ -39,6 +42,7 @@ public class CreateOrderCommandHandler: IRequestHandler<CreateOrderCommand, Orde
         await _orderRepository.AddOrderAsync(order);
 
         //Integrate with a payment gateway service to process transactions
+        _logger.LogInformation("Processing payment...");
         
         //If TotalAmount reach 500 bath threshold. Raise an event to UserService that user is eligible to claim the prize
         if (order.OrderAmount > 500)
